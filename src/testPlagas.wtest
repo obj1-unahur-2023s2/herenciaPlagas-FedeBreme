@@ -1,0 +1,48 @@
+import plagas.*
+import barrios.*
+import elementos.*
+
+describe "test de plagas" {
+	//elementos
+	const hogar = new Hogar(nivelDeMugre = 20, confort = 10)
+	const huerta = new Huerta(capacidadDeProduccion = 30)
+	const perro = new Mascota(nivelDeSalud = 40)
+	const hurlingham = new Barrio(elementos = [hogar, huerta, perro], plagas = [])
+	//plagas
+	const cucarachas = new Cucarachas(poblacion = 60, nivelDeDanioAlAtacar = 8, pesoPromedioPorCucaracha = 2)
+	const pulgas = new Pulgas(poblacion = 120, nivelDeDanioAlAtacar = 9)
+	const garrapatas = new Garrapatas(poblacion = 90, nivelDeDanioAlAtacar = 7)
+	const mosquitos = new Mosquitos(poblacion = 80, nivelDeDanioAlAtacar = 10)
+	
+	test "el nivel de daño de las cucarachas = 30" {
+		assert.equals(30, hurlingham.nivelDeDanio(cucarachas))
+	}
+	
+	test "el nivel de daño de las pulgas = 240" {
+		assert.equals(240, hurlingham.nivelDeDanio(pulgas))
+	}
+	
+	test "el nivel de daño de las garrapatas = 180" {
+		assert.equals(180, hurlingham.nivelDeDanio(garrapatas))
+	}
+	
+	test "el nivel de daño de los mosquitos = 80" {
+		assert.equals(80, hurlingham.nivelDeDanio(mosquitos))
+	}
+	
+	test "las cucarachas no transmiten enfermedades" {
+		assert.notThat(hurlingham.transmiteEnfermedades(cucarachas))
+	}
+	
+	test "las pulgas no transmiten enfermedades" {
+		assert.notThat(hurlingham.transmiteEnfermedades(pulgas))
+	}
+	
+	test "las garrapatas no transmiten enfermedades" {
+		assert.notThat(hurlingham.transmiteEnfermedades(garrapatas))
+	}
+	
+	test "los mosquitos no transmiten enfermedades" {
+		assert.notThat(hurlingham.transmiteEnfermedades(mosquitos))
+	}
+}

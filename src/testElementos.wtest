@@ -1,0 +1,26 @@
+import elementos.*
+import barrios.*
+
+describe "test de elementos" {
+	
+	const hogar = new Hogar(nivelDeMugre = 20, confort = 10)
+	const huerta = new Huerta(capacidadDeProduccion = 30)
+	const perro = new Mascota(nivelDeSalud = 40)
+	const hurlingham = new Barrio(elementos = [hogar, huerta, perro], plagas = [])
+	
+	test "el hogar no es bueno" {
+		assert.that(hurlingham.esBueno(hogar))
+	}
+	
+	test "la huerta es bueno" {
+		assert.that(hurlingham.noEsBueno(huerta))
+	}
+	
+	test "el perro no es bueno" {
+		assert.that(hurlingham.noEsBueno(perro))
+	}
+	
+	test "el barrio no es copado" {
+		assert.notThat(hurlingham.esBarrioCopado())
+	}
+}

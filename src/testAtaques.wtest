@@ -1,0 +1,58 @@
+import elementos.*
+import plagas.*
+import barrios.*
+
+describe "test de ataques" {
+	//elementos
+	const hogar = new Hogar(nivelDeMugre = 20, confort = 10)
+	const hogar2 = new Hogar(nivelDeMugre = 50, confort = 20)
+	const huerta = new Huerta(capacidadDeProduccion = 30)
+	const perro = new Mascota(nivelDeSalud = 40)
+	const hurlingham = new Barrio(elementos = [hogar, huerta, perro], plagas = [])
+	//plagas
+	const cucarachas = new Cucarachas(poblacion = 60, nivelDeDanioAlAtacar = 8, pesoPromedioPorCucaracha = 2)
+	const pulgas = new Pulgas(poblacion = 120, nivelDeDanioAlAtacar = 9)
+	const garrapatas = new Garrapatas(poblacion = 90, nivelDeDanioAlAtacar = 7)
+	const mosquitos = new Mosquitos(poblacion = 80, nivelDeDanioAlAtacar = 10)
+	
+	method initialize() {
+		hurlingham.recibirAtaque(hogar, cucarachas)
+		hurlingham.recibirAtaque(huerta, garrapatas)
+		hurlingham.recibirAtaque(perro, pulgas)
+		hurlingham.recibirAtaque(hogar2, mosquitos)
+	}
+	
+	//plagas
+	test "el peso promedio por cucarachas pasa a ser = 4 luego del ataque" {
+		assert.equals(4, cucarachas.pesoPromedioPorCucaracha())
+	}
+	
+	test "la poblacion de las pulgas pasa a ser = 132 despues del ataque" {
+		assert.equals(132, pulgas.poblacion())
+	}
+	
+	test "la poblacion de las garrapatas pasa a ser = 108 despues del ataque" {
+		assert.equals(108, garrapatas.poblacion())
+	}
+	
+	test "la poblacion de los mosquitos pasa a ser = 88 despues del ataque" {
+		assert.equals(88, mosquitos.poblacion())
+	}
+	
+	//elemetos
+	test "el nivel de mugre del hogar pasa a ser = 50 despues el ataque" {
+		assert.equals(50, hogar.nivelDeMugre())
+	}
+	
+	test "la capacidad de produccion de la huerta pasa a ser = 12 despues del ataque" {
+		assert.equals(12, huerta.capacidadDeProduccion())
+	}
+	
+	test "el nivel de salud de la mascota sigue siendo = 40 despues del ataque" {
+		assert.equals(40, perro.nivelDeSalud())
+	}
+	
+	test "el nivel de mugre del hogar2 pasa a ser = 130 despues el ataque" {
+		assert.equals(130, hogar2.nivelDeMugre())
+	}
+}
